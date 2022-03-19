@@ -14,6 +14,8 @@ import { MovieEffects } from './store/movies';
 import { MovieService } from './service/movie-service';
 import { HttpClientModule } from '@angular/common/http';
 import { metaReducers, reducers } from './store';
+import { CharacterEffects } from './store/characters';
+import { CharacterService } from './service/character-service';
 
 @NgModule({
   declarations: [
@@ -28,10 +30,10 @@ import { metaReducers, reducers } from './store';
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, { metaReducers, }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([MovieEffects]),
+    EffectsModule.forRoot([MovieEffects, CharacterEffects]),
     HttpClientModule,
   ],
-  providers: [MovieService],
+  providers: [MovieService, CharacterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

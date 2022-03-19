@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { Movie } from 'src/app/models/movie-model';
-import { fetchMovies } from 'src/app/store/movies';
+import { fetchMovies, selectMovie } from 'src/app/store/movies';
 import { selectAllMovies } from 'src/app/store/movies/selectors/movie-selector';
 
 @Component({
@@ -14,8 +15,10 @@ export class HomePageComponent implements OnInit {
 
   cardSelected: number;
   movies$: Observable<Movie[]> = of();
+  movie$: Observable<Movie[]> = of();
 
-  constructor(private readonly store: Store) { }
+
+  constructor(private readonly store: Store, public router: Router) { }
 
   ngOnInit(): void {
     this.store.dispatch(fetchMovies());
@@ -28,6 +31,12 @@ export class HomePageComponent implements OnInit {
 
   changeText(id: number): void {
     this.cardSelected = id;
+
+
+  }
+
+  selectMovie(id: string): void {
+    this.store.dispatch(selectMovie({ movieSelected: id }));
   }
 
 }

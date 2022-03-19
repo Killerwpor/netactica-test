@@ -1,8 +1,8 @@
-import { Movie } from "./movie-model";
+import { Movie } from "./movie-model"
 
 export interface Character {
     name: string,
-    eyeColor: string,
+    eye_color: string,
     gender: string,
-    films: Movie[],
+    films: string[]
 }

@@ -13,3 +13,10 @@ export const fetchMoviesSuccess = createAction(
 export const fetchMoviesFailed = createAction(
     "[Movies/API] Fetch movies failed"
 );
+
+export const selectMovie = createAction(
+    "[Movies/API] Select Movie",
+    props<{ movieSelected: string }>()
+);
+
+
