@@ -1,1 +1,24 @@
-<p>home-page works!</p>
+<div class="principal-container">
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4" *ngFor="let movie of movies$ | async;">
+            <div class="item">
+                <div class="container">
+                    <div class="movie-card">
+                        <div class="movie-content">
+                            <div class="header margin-bottom-20">
+                                <div class="title" (click)="changeText(movie.episode_id)">Star Wars: {{movie.title}}
+                                </div>
+                                <div>Episodio: {{movie.episode_id}}</div>
+                            </div>
+                            <div class="director margin-bottom-20">Director: {{movie.director}}</div>
+                            <div class="characters" [routerLink]="['/list']">Personajes</div>
+                            <div *ngIf="movie.episode_id === cardSelected" class="parent">
+                                <div class="animation">{{movie.opening_crawl}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
