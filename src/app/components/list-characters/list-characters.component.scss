@@ -1,0 +1,70 @@
+.container {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 100%;
+	margin-top: 5vh;
+	margin-left: auto;
+	margin-right: auto;
+	justify-content: center;
+}
+
+.movie-card {
+  font-family: "starJedi", Arial, Helvetica, sans-serif;
+	background: #ffffff;
+	box-shadow: 0px 6px 18px rgba(0,0,0,.1);
+	width: 100%;
+	max-width: 350px;
+	margin: 2em;
+	border-radius: 10px;
+	display:inline-block;
+}
+
+.movie-card:hover {
+	transform:scale(1.03);
+	box-shadow: 0px 10px 25px rgba(0,0,0,.08);
+}
+
+.movie-content {
+	padding: 50px 10px 50px 10px;
+	margin: 0;
+  text-align: center;
+}
+
+.margin-bottom-20{
+  margin-bottom: 20px;
+}
+
+.title{
+	position: relative;
+  font-size: 28px;
+
+}
+
+.characters:hover, .title:hover{
+cursor: pointer;
+color: #ffe81f;
+}	
+
+.parent{
+	perspective: 200px;
+}
+.animation{
+	position: absolute;
+	 font-size: 12px;
+	color: #ffe81f;
+	transform: rotateX(30deg);
+	animation: animateCrawl 15s ease-in forwards;
+}
+
+@keyframes animateCrawl {
+    0%   { transform: rotateX(30deg) translateY(100px); }
+	99% {transform: rotateX(30deg) translateY(-200px); }
+    100% {opacity: 0; display: none; }
+}
+
+@media screen and (min-width: 960px) { //laptop
+	.movie-card {
+	  max-width: 400px;
+	}
+  }
+  

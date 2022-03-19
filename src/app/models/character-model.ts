@@ -1,4 +1,3 @@
-import { Movie } from "./movie-model"
 
 export interface Character {
     name: string,
@@ -6,3 +5,10 @@ export interface Character {
     gender: string,
     films: string[]
 }
+
+export interface Pagination {
+    index: number,
+    end: number,
+}
+
+
