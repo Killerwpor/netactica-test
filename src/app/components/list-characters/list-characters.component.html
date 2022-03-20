@@ -20,5 +20,9 @@
                 </div>
             </div>
         </div>
+        <pagination class="center" [totalItems]="(charactersLength$ | async)" [itemsPerPage]="10"
+            (pageChanged)="pageChanged($event)">
+        </pagination>
     </div>
+
 </div>

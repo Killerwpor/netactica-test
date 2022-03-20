@@ -14,3 +14,8 @@ export const getCharactersSuccess = createAction(
 export const gethCharactersFailed = createAction(
     "[Characters/API] get character failed"
 );
+
+export const setMovieToCharacter = createAction(
+    "[Characters/API] get character failed",
+    props<{ name: string }>()
+);

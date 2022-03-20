@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { metaReducers, reducers } from './store';
 import { CharacterEffects } from './store/characters';
 import { CharacterService } from './service/character-service';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CharacterService } from './service/character-service';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([MovieEffects, CharacterEffects]),
     HttpClientModule,
+    PaginationModule.forRoot(),
   ],
   providers: [MovieService, CharacterService],
   bootstrap: [AppComponent]

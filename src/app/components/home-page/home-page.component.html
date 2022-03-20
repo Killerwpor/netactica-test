@@ -11,7 +11,7 @@
                                 <div>Episode: {{movie.episode_id}}</div>
                             </div>
                             <div class="director margin-bottom-20">Director: {{movie.director}}</div>
-                            <div class="characters" (click)="selectMovie(movie.episode_id)">Personajes</div>
+                            <div class="characters" (click)="selectMovie(movie.url)">Personajes</div>
                             <div *ngIf="movie.episode_id === cardSelected" class="parent">
                                 <div class="animation">{{movie.opening_crawl}}</div>
                             </div>

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { Movie } from 'src/app/models/movie-model';
 import { fetchMovies, selectMovie } from 'src/app/store/movies';
-import { selectAllMovies } from 'src/app/store/movies/selectors/movie-selector';
+import { selectMoviesAll } from 'src/app/store/movies/selectors/movie-selector';
 
 @Component({
   selector: 'app-home-page',
@@ -26,7 +26,7 @@ export class HomePageComponent implements OnInit {
   }
 
   getSelectors(): void {
-    this.movies$ = this.store.select(selectAllMovies);
+    this.movies$ = this.store.select(selectMoviesAll);
   }
 
   changeText(id: number): void {
