@@ -4,7 +4,6 @@ export interface Movie {
     opening_crawl: string,
     director: string,
     characters: string[],
-    url: string,
 }
 
 export interface MoviesApiResponse {

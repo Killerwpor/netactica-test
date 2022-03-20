@@ -1,12 +1,11 @@
-import { flatten } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Character, CharacterWithFilms } from 'src/app/models/character-model';
+import { Character } from 'src/app/models/character-model';
 import { Movie } from 'src/app/models/movie-model';
-import { selectCharactersAll, selectCharactersLenght, selectCharactersMovies, selectCharactersPaginated } from 'src/app/store/characters';
+import { selectAllCharacters, selectCharactersLenght, selectCharactersPaginated } from 'src/app/store/characters';
 import { getCharacter } from 'src/app/store/characters/actions/characters-actions';
 import { selectMovie, selectMovieSelected, selectSpecificMovie } from 'src/app/store/movies';
 
@@ -22,41 +21,39 @@ export class ListCharactersComponent implements OnInit {
   characters$: Observable<Character[]> = of();
   charactersLength$: Observable<number> = of();
 
-  constructor(private readonly store: Store) {
+
+
+  constructor(private readonly store: Store, public router: Router,) {
 
   }
 
   ngOnInit(): void {
     this.getCharacters();
+    this.charactersLength$ = this.store.select(selectCharactersLenght);
   }
 
   getCharacters(): void {
 
     this.store.select(selectMovieSelected).subscribe((number) => {
-      console.log(number);
       this.store.select(selectSpecificMovie, number).subscribe((movie) => {
-        movie.characters.forEach((e) => {
-          console.log(e);
+        if (!movie) {
+          return this.router.navigate(['/home']);
+        }
+        movie[0].characters.forEach((e) => {
           this.store.dispatch(getCharacter({ id: e }))
         })
       })
     });
 
-    this.charactersLength$ = this.store.select(selectCharactersLenght);
-    this.characters$ = this.store.select(selectCharactersAll);
-    //this.characters$ = this.store.select(selectCharactersPaginated, { index: 0, end: 10 });
+    this.characters$ = this.store.select(selectAllCharacters, { index: 0, end: 10 });
 
   }
-
-
-
-
-
 
   pageChanged(event: { page: number, itemsPerPage: number }): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
     this.characters$ = this.store.select(selectCharactersPaginated, { index: startItem, end: endItem });
+
   }
 }
 

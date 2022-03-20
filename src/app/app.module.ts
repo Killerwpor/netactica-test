@@ -17,6 +17,7 @@ import { metaReducers, reducers } from './store';
 import { CharacterEffects } from './store/characters';
 import { CharacterService } from './service/character-service';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     EffectsModule.forRoot([MovieEffects, CharacterEffects]),
     HttpClientModule,
     PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
   ],
   providers: [MovieService, CharacterService],
   bootstrap: [AppComponent]

@@ -15,7 +15,7 @@ export class CharacterService {
 
     getCharacter(id: string): Observable<Character> {
         return this._http.get<Character>(
-            id
+            `${this.apiUrl}${Endpoints.GETCHARACTER}${id}`
         );
     }
 }

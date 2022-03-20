@@ -3,7 +3,7 @@
         <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4" *ngFor="let character of characters$ | async;">
             <div class="item">
                 <div class="container">
-                    <div class="movie-card">
+                    <div class="character-card">
                         <div class="movie-content">
                             <div class="header margin-bottom-20">
                                 <div class="title" (click)="changeText(movie.episode_id)">Name: {{character.name}}
@@ -12,17 +12,12 @@
                             </div>
                             <div class="director margin-bottom-20">Gender: {{character.gender}}</div>
                             <div class="characters" (click)="selectMovie(movie.episode_id)">Lista films:</div>
-                            <!-- <div *ngIf="movie.episode_id === cardSelected" class="parent">
-                                <div class="animation">{{movie.opening_crawl}}</div>
-                            </div> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <pagination class="center" [totalItems]="(charactersLength$ | async)" [itemsPerPage]="10"
-            (pageChanged)="pageChanged($event)">
-        </pagination>
+            (pageChanged)="pageChanged($event)"></pagination>
     </div>
-
 </div>
