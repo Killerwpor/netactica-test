@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { combineLatest, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, Observable, of, Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { Character } from 'src/app/models/character-model';
 import { Movie } from 'src/app/models/movie-model';
 import { selectAllCharacters, selectCharactersLenght, selectCharactersPaginated } from 'src/app/store/characters';
@@ -14,18 +14,19 @@ import { selectMovie, selectMovieSelected, selectSpecificMovie } from 'src/app/s
   templateUrl: './list-characters.component.html',
   styleUrls: ['./list-characters.component.scss']
 })
-export class ListCharactersComponent implements OnInit {
+export class ListCharactersComponent implements OnInit, OnDestroy {
 
   movie$: Observable<Movie[]> = of();
   test$: Observable<number> = of();
   characters$: Observable<Character[]> = of();
   charactersLength$: Observable<number> = of();
-
+  private destroy: Subject<boolean> = new Subject<boolean>();
 
 
   constructor(private readonly store: Store, public router: Router,) {
 
   }
+
 
   ngOnInit(): void {
     this.getCharacters();
@@ -34,8 +35,8 @@ export class ListCharactersComponent implements OnInit {
 
   getCharacters(): void {
 
-    this.store.select(selectMovieSelected).subscribe((number) => {
-      this.store.select(selectSpecificMovie, number).subscribe((movie) => {
+    this.store.select(selectMovieSelected).pipe(takeUntil(this.destroy)).subscribe((number) => {
+      this.store.select(selectSpecificMovie, number).pipe(takeUntil(this.destroy)).subscribe((movie) => {
         if (!movie) {
           return this.router.navigate(['/home']);
         }
@@ -54,6 +55,11 @@ export class ListCharactersComponent implements OnInit {
     const endItem = event.page * event.itemsPerPage;
     this.characters$ = this.store.select(selectCharactersPaginated, { index: startItem, end: endItem });
 
+  }
+
+  ngOnDestroy(): void {
+    this.destroy.next(true);
+    this.destroy.unsubscribe();
   }
 }
 

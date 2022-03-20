@@ -1,4 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
+import { selectMovie } from "../../movies/actions/movie-actions";
 import { getCharactersSuccess } from "../actions/characters-actions";
 import { CharactersState } from "../character-state";
 import { initialState } from "../character-state";
@@ -14,5 +15,9 @@ export const characterReducer = createReducer<CharactersState>(
                 return link.slice(link.length - 3, link.length - 2) != '/' ? link.slice(link.length - 3, link.length - 1)! : link.slice(link.length - 2, link.length - 1)
             })
         }]
+    })),
+    on(selectMovie, (state) => ({
+        ...state,
+        characters: []
     })),
 )
